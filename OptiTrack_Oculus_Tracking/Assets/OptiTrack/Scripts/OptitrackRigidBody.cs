@@ -9,15 +9,21 @@ using UnityEngine;
 public class OptitrackRigidBody : MonoBehaviour
 {
     public OptitrackStreamingClient StreamingClient;
-    public Int32 RigidBodyId;
+	internal Transform translation;
+	public Int32 RigidBodyId;
 
+	private void Awake()
+	{
+		StreamingClient = GameObject.FindGameObjectWithTag("OptiClient").GetComponent<OptitrackStreamingClient>();
+		translation = StreamingClient.transform.GetChild(0);
+	}
 
-    void Start()
+	void Start()
     {
         // If the user didn't explicitly associate a client, find a suitable default.
         if ( this.StreamingClient == null )
         {
-            this.StreamingClient = OptitrackStreamingClient.FindDefaultClient();
+			this.StreamingClient = OptitrackStreamingClient.FindDefaultClient();
 
             // If we still couldn't find one, disable this component.
             if ( this.StreamingClient == null )

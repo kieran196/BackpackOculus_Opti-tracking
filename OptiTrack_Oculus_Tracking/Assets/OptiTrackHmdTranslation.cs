@@ -5,11 +5,12 @@ using UnityEngine;
 public class OptiTrackHmdTranslation : MonoBehaviour
 {
 
-	public Transform translation;
+	private Transform translation;
 	public bool invertTranslation;
 	public bool disableOculusTracking;
 
 	private void Start() {
+		translation = GetComponent<OptitrackRigidBody>().translation;
 		if (disableOculusTracking) {
 			UnityEngine.XR.InputTracking.disablePositionalTracking = true;
 		}
